@@ -1,4 +1,4 @@
-package com.restaurantbooker.ui;
+package com.restuarantbooker.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,8 +14,7 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
-
+        setContentView(R.layout.activity_splash);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

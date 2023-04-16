@@ -1,4 +1,4 @@
-package com.restaurantbooker.restaurant;
+package com.restuarantbooker.restaurant;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

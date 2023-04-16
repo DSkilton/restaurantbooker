@@ -1,7 +1,6 @@
 package com.restaurantbooker.data;
 
 import androidx.lifecycle.LiveData;
-import androidx.room.solver.query.result.LiveDataQueryResultBinder;
 
 import com.restaurantbooker.data.entities.UserEntity;
 import com.restaurantbooker.user.User;

@@ -1,4 +1,4 @@
-package com.restaurantbooker.ui;
+package com.restuarantbooker.ui;
 
 public class RestaurantActivity {
 }

@@ -1,4 +1,4 @@
-package com.restaurantbooker.entities;
+package com.restuarantbooker.entities;
 
 import org.junit.Test;
 

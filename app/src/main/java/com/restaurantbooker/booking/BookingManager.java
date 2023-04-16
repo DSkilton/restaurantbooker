@@ -1,7 +1,7 @@
-package com.restaurantbooker.booking;
+package com.restuarantbooker.booking;
 
-import com.restaurantbooker.restaurant.Restaurant;
-import com.restaurantbooker.user.User;
+import com.restuarantbooker.restaurant.Restaurant;
+import com.restuarantbooker.user.User;
 
 import java.util.Date;
 

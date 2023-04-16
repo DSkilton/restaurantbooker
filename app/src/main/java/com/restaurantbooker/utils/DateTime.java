@@ -1,4 +1,4 @@
-package com.restaurantbooker.utils;
+package com.restuarantbooker.utils;
 
 public class DateTime {
 }

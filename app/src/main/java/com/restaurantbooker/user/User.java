@@ -1,4 +1,4 @@
-package com.restaurantbooker.user;
+package com.restuarantbooker.user;
 
 public class User {
 }
