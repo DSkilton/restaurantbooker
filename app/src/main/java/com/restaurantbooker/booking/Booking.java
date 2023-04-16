@@ -1,0 +1,4 @@
+package com.restaurantbooker.booking;
+
+public class Booking {
+}
