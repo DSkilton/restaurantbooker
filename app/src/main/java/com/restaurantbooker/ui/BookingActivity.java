@@ -1,14 +1,14 @@
-package com.restuarantbooker.ui;
+package com.restaurantbooker.ui;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.restaurantbooker.R;
-import com.restuarantbooker.booking.Booking;
-import com.restuarantbooker.booking.BookingManager;
-import com.restuarantbooker.restaurant.Restaurant;
-import com.restuarantbooker.user.User;
+import com.restaurantbooker.booking.Booking;
+import com.restaurantbooker.booking.BookingManager;
+import com.restaurantbooker.restaurant.Restaurant;
+import com.restaurantbooker.user.User;
 
 import java.util.Date;
 

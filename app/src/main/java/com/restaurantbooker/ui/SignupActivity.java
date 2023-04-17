@@ -1,4 +1,4 @@
-package com.restuarantbooker.ui;
+package com.restaurantbooker.ui;
 
 public class SignupActivity {
 }

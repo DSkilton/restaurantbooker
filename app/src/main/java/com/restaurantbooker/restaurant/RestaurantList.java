@@ -1,4 +1,4 @@
-package com.restuarantbooker.restaurant;
+package com.restaurantbooker.restaurant;
 
 public class RestaurantList {
 }

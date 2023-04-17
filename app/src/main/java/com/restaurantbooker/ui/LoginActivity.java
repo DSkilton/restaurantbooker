@@ -1,4 +1,4 @@
-package com.restuarantbooker.ui;
+package com.restaurantbooker.ui;
 
 import android.os.Bundle;
 
@@ -6,8 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 
 import com.example.restaurantbooker.R;
-import com.restuarantbooker.data.UserRepository;
-import com.restuarantbooker.user.User;
+import com.restaurantbooker.data.UserRepository;
+import com.restaurantbooker.user.User;
 
 public class LoginActivity extends AppCompatActivity {
     private UserRepository userRepository;
