@@ -1,17 +1,17 @@
-package com.restaurantbooker.restaurantbooker;
+package com.restaurantbooker.data.entities;
 
 import android.app.Application;
 import android.content.Context;
 
-public class RestaurantBooker extends Application {
+public class RestaurantEntity extends Application {
     private static Context context;
 
     public void onCreate(){
         super.onCreate();
-        RestaurantBooker.context =getApplicationContext();
+        RestaurantEntity.context =getApplicationContext();
     }
 
     public static Context getAppContext() {
-        return RestaurantBooker.getAppContext();
+        return RestaurantEntity.getAppContext();
     }
 }

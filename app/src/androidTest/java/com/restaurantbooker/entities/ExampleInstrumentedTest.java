@@ -1,4 +1,4 @@
-package com.restaurantbooker.restaurantbooker;
+package com.restaurantbooker.entities;
 
 import android.content.Context;
 

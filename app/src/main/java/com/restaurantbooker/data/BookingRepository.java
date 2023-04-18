@@ -1,4 +1,4 @@
 package com.restaurantbooker.data;
 
-public class BookingRepository {
+public interface BookingRepository {
 }
