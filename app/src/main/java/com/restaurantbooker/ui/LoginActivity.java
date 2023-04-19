@@ -1,38 +1,39 @@
 package com.restaurantbooker.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 
 import com.example.restaurantbooker.R;
-import com.restaurantbooker.data.UserRepository;
-import com.restaurantbooker.user.User;
 
 public class LoginActivity extends AppCompatActivity {
-    private UserRepository userRepository;
+    Button btnLogin;
+    Button btnSignUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-    }
 
-    private void loginUser(String email, String password) {
-        LiveData<User> user = userRepository.loginUser(email, password);
-        if (user != null) {
-            // Proceed to the main activity
-        } else {
-            // Show error message
-        }
-    }
+        btnLogin = findViewById(R.id.btn_login);
+        btnSignUp = findViewById(R.id.btn_signup);
 
-    private void signupUser(String email, String password) {
-        LiveData<User> newUser = userRepository.signupUser(email, password);
-        if (newUser != null) {
-            // Proceed to the main activity
-        } else {
-            // Show error message
-        }
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Add your login functionality here
+            }
+        });
+
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

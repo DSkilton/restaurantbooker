@@ -25,7 +25,7 @@ public class RoomUserRepository implements UserRepository {
     }
 
     @Override
-    public LiveData<User> signupUser(String email, String password) {
+    public LiveData<UserEntity> signupUser(String email, String password) {
         return null;
     }
 

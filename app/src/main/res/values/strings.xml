@@ -14,4 +14,8 @@
     <string name="add_restaurant">Add Restaurant</string>
     <string name="update_restaurant">Update Restaurant</string>
     <string name="delete_restaurant">Delete Restaurant</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="name_hint">Name</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
 </resources>

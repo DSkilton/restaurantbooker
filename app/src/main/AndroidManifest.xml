@@ -12,7 +12,7 @@
         android:theme="@style/Theme.RestaurantBooker"
         tools:targetApi="31" >
 
-        <activity android:name="com.restaurantbooker.ui.WelcomeActivity"
+        <activity android:name="com.restaurantbooker.ui.SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,6 +21,9 @@
         </activity>
         <activity android:name="com.restaurantbooker.ui.LoginActivity"
             android:exported="false" />
-
+        <activity android:name="com.restaurantbooker.ui.SignUpActivity"
+            android:exported="false" />
+        <activity android:name="com.restaurantbooker.ui.WelcomeActivity"
+            android:exported="false" />
     </application>
 </manifest>
