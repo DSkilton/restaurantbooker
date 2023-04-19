@@ -18,4 +18,10 @@
     <string name="name_hint">Name</string>
     <string name="email_hint">Email</string>
     <string name="password_hint">Password</string>
+    <string name="welcome">Welcome</string>
+    <string name="full_name">Full name</string>
+    <string name="email_address">Email address</string>
+    <string name="already_registered">Already registered</string>
+    <string name="signup_success_message">Successfully signed up</string>
+    <string name="select_booking_prompt">Select booking</string>
 </resources>
