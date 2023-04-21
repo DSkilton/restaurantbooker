@@ -30,6 +30,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract UserDao userDao();
     public abstract RestuarantDao restuarantDao();
+    public abstract BookingDao bookingDao();
 
     @Override
     public void clearAllTables() {

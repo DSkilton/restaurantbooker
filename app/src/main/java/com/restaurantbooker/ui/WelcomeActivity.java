@@ -41,6 +41,34 @@ public class WelcomeActivity extends AppCompatActivity {
         //hide input initially
         tilName.setVisibility(View.GONE);
 
+        tvAlreadyRegistered.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //show login UI and hide sign up UI
+                btnSignUp.setVisibility(View.GONE);
+                tvAlreadyRegistered.setVisibility(View.GONE);
+                tilName.setVisibility(View.GONE);
+
+                btnLogin.setVisibility(View.VISIBLE);
+                etEmail.setVisibility(View.VISIBLE);
+                etPassword.setVisibility(View.VISIBLE);
+            }
+        });
+
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //show sign up UI and hide login UI
+                btnLogin.setVisibility(View.GONE);
+                etEmail.setVisibility(View.GONE);
+                etPassword.setVisibility(View.GONE);
+
+                btnSignUp.setVisibility(View.VISIBLE);
+                tvAlreadyRegistered.setVisibility(View.VISIBLE);
+                tilName.setVisibility(View.VISIBLE);
+            }
+        });
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,17 +100,26 @@ public class WelcomeActivity extends AppCompatActivity {
                 String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
 
+                // validate user input
+                if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+                    tvErrorMessage.setText("Please enter name, email, and password.");
+                    tvErrorMessage.setVisibility(View.VISIBLE);
+                    return;
+                }
+
                 // TODO: validate name, email, and password
 
                 // TODO: check if user already exists
 
                 // TODO: create new user account
 
-                // For now, just show a message indicating successful signup
                 String message = getString(R.string.signup_success_message, name);
-                // Assuming you have a custom method called showMessage() to display the message
                 showMessage(message);
             }
         });
+    }
+
+    private void showMessage(String message) {
+        // TODO: display message to user
     }
 }
