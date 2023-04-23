@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        restaurantRepository = new RoomRestaurantRepository();
+        restaurantRepository = new RoomRestaurantRepository(getApplication());
         loadRestaurants();
     }
 
