@@ -10,23 +10,12 @@ import java.util.Objects;
 public class UserEntity {
     @PrimaryKey
     @NonNull
-    private String id;
     private String email;
     private String password;
 
-    public UserEntity(@NonNull String id, String email, String password) {
-        this.id = id;
+    public UserEntity(@NonNull String email, String password) {
         this.email = email;
         this.password = password;
-    }
-
-    @NonNull
-    public String getId() {
-        return id;
-    }
-
-    public void setId(@NonNull String id) {
-        this.id = id;
     }
 
     public String getEmail() {
@@ -50,18 +39,17 @@ public class UserEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserEntity that = (UserEntity) o;
-        return id.equals(that.id) && email.equals(that.email) && password.equals(that.password);
+        return email.equals(that.email) && password.equals(that.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, password);
+        return Objects.hash(email, password);
     }
 
     @Override
     public String toString() {
         return "UserEntity{" +
-                "id='" + id + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 '}';

@@ -1,7 +1,10 @@
 package com.restaurantbooker.data;
 
+import static com.restaurantbooker.data.database.AppDatabase.databaseWriteExecutor;
+
 import android.app.Application;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -11,27 +14,48 @@ import com.restaurantbooker.data.database.AppDatabase;
 import com.restaurantbooker.data.entities.UserEntity;
 import com.restaurantbooker.user.User;
 
+import java.sql.SQLClientInfoException;
+
 public class RoomUserRepository implements UserRepository {
     private UserDao userDao;
 
     public RoomUserRepository(Application application){
         AppDatabase db = AppDatabase.getInstance(application);
         userDao = db.userDao();
+        Log.d("RoomUserRepository", "RoomUserRepository initialized");
+        databaseWriteExecutor.execute(() -> {
+            UserEntity testUser = new UserEntity("test@example.com", "testpassword");
+            userDao.insertUser(testUser);
+            Log.d("RoomUserRepository", "Inserted test user: " + testUser);
+        });
+    }
+
+    public void addUser(UserEntity user){
+        try{
+            if(emailExists(user.getEmail())){
+
+            } else{
+                insertUser(user);
+            }
+        } catch (SQLClientInfoException e) {
+            Log.e("RoomUserRepository", "SQLiteConstraintException while adding user: " + e.getMessage());
+        }
     }
 
     @Override
-    public LiveData<User> loginUser(String email, String password) {
-        return null;
-    }
-
-    @Override
-    public LiveData<UserEntity> signupUser(String email, String password) {
-        return null;
-    }
-
-    @Override
-    public LiveData<UserEntity> getUserByEmail(String email) {
-        return userDao.getUserByEmail(email);
+    public LiveData<Long> insertUser(UserEntity user) {
+        MutableLiveData<Long> insertResult = new MutableLiveData<>();
+        databaseWriteExecutor.execute(() -> {
+            try {
+                long id = userDao.insertUser(user);
+                Log.d("RoomUserRepository", "User inserted with ID: " + id);
+                insertResult.postValue(id);
+            } catch (Exception e) {
+                Log.e("RoomUserRepository", "Error inserting user", e);
+                insertResult.postValue(-1L);
+            }
+        });
+        return insertResult;
     }
 
     @Override
@@ -42,8 +66,27 @@ public class RoomUserRepository implements UserRepository {
     }
 
     @Override
-    public LiveData<Integer> deleteUser(UserEntity user) {
+    public LiveData<Long> deleteUser(UserEntity user) {
+        MutableLiveData<Long> deleteResult = new MutableLiveData<>();
+        new DeleteUserAsyncTask(userDao, deleteResult).execute(user);
+        return deleteResult;
+    }
+
+    @Override
+    public LiveData<UserEntity> signupUser(String email, String password) {
         return null;
+    }
+
+    @Override
+    public LiveData<Long> signupUser(UserEntity user) {
+        MutableLiveData<Long> insertResult = new MutableLiveData<>();
+        new InsertUserAsyncTask(userDao, insertResult).execute(user);
+        return insertResult;
+    }
+
+    @Override
+    public LiveData<UserEntity> getUserByEmail(String email) {
+        return userDao.getUserByEmail(email);
     }
 
     private static class InsertUserAsyncTask extends AsyncTask<UserEntity, Void, Long> {
@@ -57,7 +100,7 @@ public class RoomUserRepository implements UserRepository {
 
         @Override
         protected Long doInBackground(UserEntity... users) {
-            return userDao.insertUser(users[0]);
+            return userDao.insert(users[0]);
         }
 
         @Override
@@ -88,21 +131,16 @@ public class RoomUserRepository implements UserRepository {
 
     private static class DeleteUserAsyncTask extends AsyncTask<UserEntity, Void, Integer> {
         private UserDao userDao;
-        private MutableLiveData<Integer> deleteResult;
+        private MutableLiveData<Long> deleteResult;
 
-        public DeleteUserAsyncTask(UserDao userDao, MutableLiveData<Integer> deleteResult) {
+        public DeleteUserAsyncTask(UserDao userDao, MutableLiveData<Long> deleteResult) {
             this.userDao = userDao;
             this.deleteResult = deleteResult;
         }
 
         @Override
-        protected Integer doInBackground(UserEntity... users) {
-            return userDao.deleteUser(users[0]);
-        }
-
-        @Override
-        protected void onPostExecute(Integer result) {
-            deleteResult.setValue(result);
+        protected Integer doInBackground(UserEntity... userEntities) {
+            return null;
         }
     }
 }

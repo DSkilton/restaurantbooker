@@ -1,4 +1,4 @@
-package com.restaurantbooker.data.models;
+package com.restaurantbooker.data.entities;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

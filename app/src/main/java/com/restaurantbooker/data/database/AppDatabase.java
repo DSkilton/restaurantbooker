@@ -11,12 +11,19 @@ import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
 import com.restaurantbooker.data.dao.RestuarantDao;
 import com.restaurantbooker.data.dao.UserDao;
+import com.restaurantbooker.data.entities.Booking;
 import com.restaurantbooker.data.entities.UserEntity;
+import com.restaurantbooker.restaurant.Restaurant;
 
-@Database(entities = {UserEntity.class}, version = 1, exportSchema = false)
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+@Database(entities = {UserEntity.class, Restaurant.class, Booking.class}, version = 2, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static final String DB_NAME = "restaurant_booked_db";
     private static AppDatabase instance;
+    public static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(4);
+
 
     public static synchronized AppDatabase getInstance(Context context) {
         if(instance == null){

@@ -6,7 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.restaurantbooker.data.models.Booking;
+import com.restaurantbooker.data.entities.Booking;
 
 import java.util.List;
 
