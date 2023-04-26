@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.restaurantbooker.R;
-import com.restaurantbooker.data.models.Booking;
+import com.restaurantbooker.data.entities.Booking;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

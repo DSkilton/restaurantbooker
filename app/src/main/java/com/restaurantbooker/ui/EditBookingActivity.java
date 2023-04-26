@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.example.restaurantbooker.R;
 import com.restaurantbooker.data.database.AppDatabase;
 import com.restaurantbooker.data.database.BookingDao;
-import com.restaurantbooker.data.models.Booking;
+import com.restaurantbooker.data.entities.Booking;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
