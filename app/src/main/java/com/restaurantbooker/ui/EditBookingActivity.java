@@ -129,12 +129,13 @@ public class EditBookingActivity extends AppCompatActivity {
                 etRestaurantName.setText(selectedBooking.getRestaurantName());
                 etPhoneNumber.setText(selectedBooking.getPhoneNumber());
 
-                LocalDateTime dateTimeInGMT = selectedBooking.getDateTimeInGMT();
-                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDate date = selectedBooking.getDate();
+                LocalTime time = selectedBooking.getTime();
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
-                etDateOfReservation.setText(dateTimeInGMT.format(dateFormatter));
-                etTimeOfReservation.setText(dateTimeInGMT.format(timeFormatter));
+                etDateOfReservation.setText(date.format(dateFormatter));
+                etTimeOfReservation.setText(time.format(timeFormatter));
             }
 
             @Override
@@ -162,8 +163,8 @@ public class EditBookingActivity extends AppCompatActivity {
             LocalDate inputDate = LocalDate.parse(dateInput, dateFormatter);
             LocalTime inputTime = LocalTime.parse(timeInput, timeFormatter);
 
-            LocalDateTime inputDateTime = LocalDateTime.of(inputDate, inputTime);
-            selectedBooking.setDateTimeInGMT(inputDateTime);
+            selectedBooking.setDate(inputDate);
+            selectedBooking.setTime(inputTime);
 
             // update booking in the database
             bookingDao.update(selectedBooking);

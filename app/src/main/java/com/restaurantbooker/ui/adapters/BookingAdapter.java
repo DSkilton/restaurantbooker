@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.restaurantbooker.R;
 import com.restaurantbooker.data.entities.Booking;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -37,12 +39,13 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
         holder.tvRestaurantName.setText(booking.getRestaurantName());
         holder.tvPhoneNumber.setText(booking.getPhoneNumber());
 
-        LocalDateTime bookingDateTime = booking.getDateTimeInGMT();
+        LocalDate bookingDate = booking.getDate();
+        LocalTime bookingTime = booking.getTime();
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
-        holder.tvDate.setText(bookingDateTime.format(dateFormatter));
-        holder.tvTime.setText(bookingDateTime.format(timeFormatter));
+        holder.tvDate.setText(bookingDate.format(dateFormatter));
+        holder.tvTime.setText(bookingTime.format(timeFormatter));
     }
 
     @Override

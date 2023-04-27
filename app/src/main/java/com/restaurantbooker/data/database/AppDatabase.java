@@ -7,6 +7,7 @@ import androidx.room.DatabaseConfiguration;
 import androidx.room.InvalidationTracker;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
 import com.restaurantbooker.data.dao.RestuarantDao;
@@ -14,11 +15,12 @@ import com.restaurantbooker.data.dao.UserDao;
 import com.restaurantbooker.data.entities.Booking;
 import com.restaurantbooker.data.entities.UserEntity;
 import com.restaurantbooker.restaurant.Restaurant;
+import com.restaurantbooker.utils.Converters;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-@Database(entities = {UserEntity.class, Restaurant.class, Booking.class}, version = 3, exportSchema = false)
+@TypeConverters({Converters.class})
+@Database(entities = {UserEntity.class, Restaurant.class, Booking.class}, version = 4, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static final String DB_NAME = "restaurant_booked_db";
     private static AppDatabase instance;

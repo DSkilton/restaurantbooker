@@ -29,5 +29,7 @@
             android:exported="false"/>
         <activity android:name="com.restaurantbooker.ui.ViewBookingsActivity"
             android:exported="false"/>
+        <activity android:name="com.restaurantbooker.ui.NewBookingActivity"
+            android:exported="false"/>
     </application>
 </manifest>

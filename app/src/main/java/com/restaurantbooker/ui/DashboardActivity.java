@@ -1,7 +1,9 @@
 package com.restaurantbooker.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 
@@ -62,7 +64,14 @@ public class DashboardActivity extends AppCompatActivity {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: implement logout functionality
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(DashboardActivity.this);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.remove("user_email");
+                editor.apply();
+
+                Intent intent = new Intent(DashboardActivity.this, WelcomeActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
