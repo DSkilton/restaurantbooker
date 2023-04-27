@@ -84,5 +84,5 @@ public class EditAccountActivity extends AppCompatActivity {
             currentUser.setEmail(etEmail.getText().toString());
             userDao.updateUser(currentUser);
         }
-    }   
+    }
 }

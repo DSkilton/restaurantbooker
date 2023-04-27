@@ -18,7 +18,7 @@ import com.restaurantbooker.restaurant.Restaurant;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {UserEntity.class, Restaurant.class, Booking.class}, version = 2, exportSchema = false)
+@Database(entities = {UserEntity.class, Restaurant.class, Booking.class}, version = 3, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static final String DB_NAME = "restaurant_booked_db";
     private static AppDatabase instance;
