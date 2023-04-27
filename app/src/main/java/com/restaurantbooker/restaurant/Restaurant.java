@@ -1,15 +1,47 @@
 package com.restaurantbooker.restaurant;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "restaurants")
 public class Restaurant {
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private long id;
 
+    @ColumnInfo(name = "name")
     private String name;
-    private String address;
-    private String phone;
 
+    @ColumnInfo(name = "address")
+    private String address;
+
+    public Restaurant(long id, String name, String address) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 }

@@ -25,5 +25,7 @@
             android:exported="false" />
         <activity android:name="com.restaurantbooker.ui.WelcomeActivity"
             android:exported="false" />
+        <activity android:name="com.restaurantbooker.ui.DashboardActivity"
+            android:exported="false"/>
     </application>
 </manifest>
