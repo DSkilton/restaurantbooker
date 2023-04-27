@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.restaurantbooker.R;
 
 public class DashboardActivity extends AppCompatActivity {
-
     private Button btnViewBookings;
     private Button btnNewBooking;
     private Button btnEditBooking;

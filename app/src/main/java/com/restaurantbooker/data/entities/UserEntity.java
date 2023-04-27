@@ -12,6 +12,7 @@ public class UserEntity {
     @NonNull
     private String email;
     private String password;
+    private String username;
 
     public UserEntity(@NonNull String email, String password) {
         this.email = email;
@@ -32,6 +33,15 @@ public class UserEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getUsername(){
+        return username;
     }
 
     @Override

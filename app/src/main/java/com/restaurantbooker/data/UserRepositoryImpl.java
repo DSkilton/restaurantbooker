@@ -30,7 +30,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public LiveData<Integer> updateUser(UserEntity user) {
+    public LiveData<Long> updateUser(UserEntity user) {
         return null;
     }
 
@@ -48,7 +48,7 @@ public class UserRepositoryImpl implements UserRepository {
     public LiveData<Long> insertUser(UserEntity user) {
         MutableLiveData<Long> result = new MutableLiveData<>();
         Executors.newSingleThreadExecutor().execute(() -> {
-            long id = userDao.insert(user);
+            long id = userDao.insertUser(user);
             result.postValue(id);
         });
         return result;

@@ -1,6 +1,7 @@
 package com.restaurantbooker.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,13 @@ import com.example.restaurantbooker.R;
 public class LoginActivity extends AppCompatActivity {
     Button btnLogin;
     Button btnSignUp;
+
+    private void saveUserEmail(String email) {
+        SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("user_email", email);
+        editor.apply();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

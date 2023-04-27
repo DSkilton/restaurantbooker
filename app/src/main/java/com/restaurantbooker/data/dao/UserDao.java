@@ -20,7 +20,7 @@ public interface UserDao {
     LiveData<UserEntity> loginUser(String email, String password);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    long insert(UserEntity user);
+    Long insertUser(UserEntity user);
 
     @Update
     int updateUser(UserEntity user);
@@ -28,9 +28,9 @@ public interface UserDao {
     @Delete
     int deleteUser(UserEntity user);
 
-    @Insert
-    long insertUser(UserEntity user);
-
     @Query("SELECT COUNT(*) > 0 FROM users WHERE email = :email")
     boolean emailExists(String email);
+
+    @Query("SELECT * FROM users WHERE email = :email")
+    UserEntity findByEmail(String email);
 }
