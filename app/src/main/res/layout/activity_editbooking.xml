@@ -65,33 +65,56 @@
                 android:inputType="datetime"
                 android:hint="Time"/>
 
-            <Button
-                android:id="@+id/btn_save"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Save"
-                android:layout_marginTop="24dp"
-                android:enabled="false"
-                android:textColor="@android:color/white"
-                android:background="@color/colorPrimary"/>
+                android:orientation="horizontal"
+                android:layout_marginTop="24dp">
 
-            <Button
-                android:id="@+id/btn_cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cancel"
-                android:layout_marginTop="24dp"
-                android:textColor="@android:color/white"
-                android:background="@color/colorPrimary"/>
+                <Button
+                    android:id="@+id/btn_save"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Save"
+                    android:textColor="@android:color/white"
+                    android:background="@color/colorPrimary"/>
 
-            <Button
-                android:id="@+id/btn_delete"
-                android:layout_width="wrap_content"
+                <Button
+                    android:id="@+id/btn_cancel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Cancel"
+                    android:layout_marginTop="0dp"
+                    android:textColor="@android:color/white"
+                    android:background="@color/colorPrimary"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Delete"
-                android:layout_marginTop="24dp"
-                android:textColor="@android:color/white"
-                android:background="@color/colorAccent"/>
+                android:orientation="horizontal"
+                android:layout_marginTop="24dp">
+
+                <Button
+                    android:id="@+id/btn_delete"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Delete"
+                    android:textColor="@android:color/white"
+                    android:background="@color/colorPrimary"/>
+
+                <Button
+                    android:id="@+id/btn_back"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Back"
+                    android:textColor="@android:color/white"
+                    android:background="@color/colorPrimary"/>
+            </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
+
 </LinearLayout>

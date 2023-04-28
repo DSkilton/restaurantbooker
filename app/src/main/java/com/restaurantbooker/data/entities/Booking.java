@@ -118,4 +118,9 @@ public class Booking {
 
         return parsedTime;
     }
+
+    @Override
+    public String toString() {
+        return restaurantName + " - " + date + " - " + time;
+    }
 }
