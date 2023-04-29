@@ -34,5 +34,7 @@
             android:exported="false"/>
         <activity android:name="com.restaurantbooker.ui.EditBookingActivity"
             android:exported="false"/>
+        <activity android:name="com.restaurantbooker.ui.EditAccountActivity"
+            android:exported="false"/>
     </application>
 </manifest>

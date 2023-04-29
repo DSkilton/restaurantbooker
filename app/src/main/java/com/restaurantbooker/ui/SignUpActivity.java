@@ -22,12 +22,12 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.activity_welcome);
 
         signUpViewModel = new ViewModelProvider(this).get(SignUpViewModel.class);
         etEmail = findViewById(R.id.et_email);
         etPassword = findViewById(R.id.et_password);
-        btnSignUp = findViewById(R.id.btn_sign_up);
+        btnSignUp = findViewById(R.id.btn_signup);
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override

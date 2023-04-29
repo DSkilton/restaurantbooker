@@ -11,9 +11,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.restaurantbooker.R;
@@ -33,8 +35,8 @@ public class EditBookingActivity extends AppCompatActivity {
     private Spinner spinnerBookings;
     private EditText etRestaurantName;
     private EditText etPhoneNumber;
-    private EditText etDateOfReservation;
-    private EditText etTimeOfReservation;
+    private TextView tvDate;
+    private TextView tvTime;
     private Button btnSave;
     private Button btnCancel;
     private Button btnDelete;
@@ -50,8 +52,8 @@ public class EditBookingActivity extends AppCompatActivity {
         spinnerBookings = findViewById(R.id.spinner_bookings);
         etRestaurantName = findViewById(R.id.et_restaurant_name);
         etPhoneNumber = findViewById(R.id.et_phone_number);
-        etDateOfReservation = findViewById(R.id.et_reservation_date);
-        etTimeOfReservation = findViewById(R.id.et_reservation_time);
+        tvDate = findViewById(R.id.tv_reservation_date);
+        tvTime = findViewById(R.id.tv_reservation_time);
         btnSave = findViewById(R.id.btn_save);
         btnCancel = findViewById(R.id.btn_cancel);
         btnDelete = findViewById(R.id.btn_delete);
@@ -133,8 +135,8 @@ public class EditBookingActivity extends AppCompatActivity {
                 DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
-                etDateOfReservation.setText(date.format(dateFormatter));
-                etTimeOfReservation.setText(time.format(timeFormatter));
+                tvDate.setText(date.format(dateFormatter));
+                tvTime.setText(time.format(timeFormatter));
             }
 
             @Override
@@ -183,8 +185,8 @@ public class EditBookingActivity extends AppCompatActivity {
                 DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
-                etDateOfReservation.setText(date.format(dateFormatter));
-                etTimeOfReservation.setText(time.format(timeFormatter));
+                tvDate.setText(date.format(dateFormatter));
+                tvTime.setText(time.format(timeFormatter));
             }
 
             @Override
@@ -192,10 +194,34 @@ public class EditBookingActivity extends AppCompatActivity {
                 // do nothing
             }
         });
-
     }
 
-    private class SaveBookingTask extends AsyncTask<Booking, Void, Boolean> {
+    public void showDatePickerDialog(View v) {
+        DatePicker datePicker = findViewById(R.id.date_picker);
+        datePicker.setVisibility(View.VISIBLE);
+        datePicker.init(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth(), new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                String formattedDate = String.format("%02d-%02d-%d", dayOfMonth, monthOfYear + 1, year);
+                tvDate.setText(formattedDate);
+                datePicker.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    public void showTimePickerDialog(View v) {
+        TimePicker timePicker = findViewById(R.id.time_picker);
+        timePicker.setVisibility(View.VISIBLE);
+        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+            @Override
+            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                String formattedTime = String.format("%02d:%02d", hourOfDay, minute);
+                tvTime.setText(formattedTime);
+                timePicker.setVisibility(View.GONE);
+            }
+        });
+    }
+                private class SaveBookingTask extends AsyncTask<Booking, Void, Boolean> {
 
         @Override
         protected Boolean doInBackground(Booking... bookings) {
@@ -223,23 +249,28 @@ public class EditBookingActivity extends AppCompatActivity {
 
         // update booking details
         selectedBooking.setRestaurantName(etRestaurantName.getText().toString());
+
+        String phoneNumber = etPhoneNumber.getText().toString();
+
+        if (phoneNumber.length() < 11) {
+            Toast.makeText(this, "Phone number must be at least 11 digits. Please check your input.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         selectedBooking.setPhoneNumber(etPhoneNumber.getText().toString());
 
-        String dateInput = etDateOfReservation.getText().toString();
-        String timeInput = etTimeOfReservation.getText().toString();
+        String dateInput = tvDate.getText().toString();
+        String timeInput = tvTime.getText().toString();
 
         // Parse input date and time, then set them as LocalDateTime in GMT
         try {
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
             LocalDate inputDate = LocalDate.parse(dateInput, dateFormatter);
             LocalTime inputTime = LocalTime.parse(timeInput, timeFormatter);
 
             selectedBooking.setDate(inputDate);
             selectedBooking.setTime(inputTime);
-
-            // update booking in the database
-            bookingDao.update(selectedBooking);
 
             // show success message
             Toast.makeText(this, "Booking updated successfully!", Toast.LENGTH_SHORT).show();
@@ -250,8 +281,6 @@ public class EditBookingActivity extends AppCompatActivity {
         // Update the booking in the database using AsyncTask
         new SaveBookingTask().execute(selectedBooking);
     }
-
-// ...
 
     private class DeleteBookingTask extends AsyncTask<Booking, Void, Boolean> {
 

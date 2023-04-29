@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,12 +19,11 @@ import com.restaurantbooker.data.entities.UserEntity;
 import com.restaurantbooker.user.User;
 
 public class EditAccountActivity extends AppCompatActivity {
-
+    private static final String TAG = "EditAccountActivity";
     private EditText etUsername;
     private EditText etEmail;
     private Button btnSave;
     private Button btnCancel;
-
     private UserDao userDao;
     private UserEntity currentUser;
 
@@ -45,7 +46,6 @@ public class EditAccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 saveUserData();
-                finish();
             }
         });
 
@@ -80,9 +80,26 @@ public class EditAccountActivity extends AppCompatActivity {
 
     private void saveUserData() {
         if (currentUser != null) {
-            currentUser.setUsername(etUsername.getText().toString());
-            currentUser.setEmail(etEmail.getText().toString());
+            String username = etUsername.getText().toString().trim();
+            String email = etEmail.getText().toString().trim();
+
+            if (username.isEmpty() || email.isEmpty()) {
+                Toast.makeText(this, "Please fill in all fields.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                Toast.makeText(this, "Invalid email format. Please check your input.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            currentUser.setUsername(username);
+            currentUser.setEmail(email);
             userDao.updateUser(currentUser);
+
+            Log.d(TAG, "User data saved: username = " + username + ", email = " + email);
+            Toast.makeText(this, "Account information updated successfully!", Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
 }

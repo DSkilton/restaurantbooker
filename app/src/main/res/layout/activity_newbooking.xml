@@ -25,23 +25,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et_restaurant_name" />
 
-    <EditText
-        android:id="@+id/et_date"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/tv_reservation_date"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Date (DD-MM-YYYY)"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:hint="Reservation Date (DD-MM-YYYY)"
+        android:padding="10dp"
+        android:textSize="16sp"
+        android:clickable="true"
+        android:focusable="false"
         app:layout_constraintTop_toBottomOf="@id/et_phone_number" />
+    />
 
-    <EditText
-        android:id="@+id/et_time"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/tv_reservation_time"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Time (HH:mm)"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_date" />
+        android:hint="Reservation Time (HH:mm)"
+        android:padding="10dp"
+        android:textSize="16sp"
+        android:clickable="true"
+        android:focusable="false"
+        app:layout_constraintTop_toBottomOf="@id/tv_reservation_date" />
+    />
+
 
     <Button
         android:id="@+id/btn_save"
@@ -50,7 +57,7 @@
         android:text="Save"
         app:layout_constraintEnd_toStartOf="@+id/btn_cancel"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_time" />
+        app:layout_constraintTop_toBottomOf="@id/tv_reservation_time" />
 
     <Button
         android:id="@+id/btn_cancel"
@@ -59,6 +66,6 @@
         android:text="Cancel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn_save"
-        app:layout_constraintTop_toBottomOf="@id/et_time" />
+        app:layout_constraintTop_toBottomOf="@id/tv_reservation_time" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

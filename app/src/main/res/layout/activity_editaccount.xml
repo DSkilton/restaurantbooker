@@ -4,25 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.EditAccountActivity">
+    tools:context="com.restaurantbooker.ui.EditAccountActivity">
+
+    <TextView
+        android:id="@+id/tv_edit_account_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit Account"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="32dp"/>
 
     <EditText
         android:id="@+id/et_username"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Username"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tv_edit_account_title"
+        android:layout_marginTop="32dp"/>
 
     <EditText
         android:id="@+id/et_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Email"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_username" />
+        app:layout_constraintTop_toBottomOf="@id/et_username"
+        android:layout_marginTop="16dp"/>
 
     <Button
         android:id="@+id/btn_save"
@@ -31,7 +48,8 @@
         android:text="Save"
         app:layout_constraintEnd_toStartOf="@+id/btn_cancel"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_email" />
+        app:layout_constraintTop_toBottomOf="@id/et_email"
+        android:layout_marginTop="16dp"/>
 
     <Button
         android:id="@+id/btn_cancel"
@@ -40,6 +58,16 @@
         android:text="Cancel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn_save"
-        app:layout_constraintTop_toBottomOf="@id/et_email" />
+        app:layout_constraintTop_toBottomOf="@id/et_email"
+        android:layout_marginTop="16dp"/>
 
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_save"
+        android:layout_marginTop="16dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

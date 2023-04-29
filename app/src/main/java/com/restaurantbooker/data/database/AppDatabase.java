@@ -20,7 +20,7 @@ import com.restaurantbooker.utils.Converters;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 @TypeConverters({Converters.class})
-@Database(entities = {UserEntity.class, Restaurant.class, Booking.class}, version = 4, exportSchema = false)
+@Database(entities = {UserEntity.class, Restaurant.class, Booking.class}, version = 5, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static final String DB_NAME = "restaurant_booked_db";
     private static AppDatabase instance;

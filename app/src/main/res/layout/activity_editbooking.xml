@@ -51,19 +51,53 @@
                 android:inputType="phone"
                 android:hint="Phone Number"/>
 
-            <EditText
-                android:id="@+id/et_reservation_date"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tv_reservation_date"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="datetime"
-                android:hint="Date"/>
+                android:layout_below="@+id/tv_phone_number"
+                android:layout_marginTop="16dp"
+                android:text="Reservation Date" />
 
-            <EditText
-                android:id="@+id/et_reservation_time"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/et_reservation_date"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="datetime"
-                android:hint="Time"/>
+                android:layout_below="@+id/tv_reservation_date"
+                android:layout_marginTop="8dp"
+                android:onClick="showDatePickerDialog" />
+
+            <!-- Add a DatePicker with visibility gone -->
+            <DatePicker
+                android:id="@+id/date_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/et_reservation_date"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_reservation_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/date_picker"
+                android:layout_marginTop="16dp"
+                android:text="Reservation Time" />
+
+            <TextView
+                android:id="@+id/et_reservation_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_reservation_time"
+                android:layout_marginTop="8dp"
+                android:onClick="showTimePickerDialog" />
+
+            <!-- Add a TimePicker with visibility gone -->
+            <TimePicker
+                android:id="@+id/time_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/et_reservation_time"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="match_parent"
