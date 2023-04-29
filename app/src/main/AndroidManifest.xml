@@ -19,13 +19,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.restaurantbooker.ui.LoginActivity"
-            android:exported="false"
-            android:noHistory="true"/>
         <activity android:name="com.restaurantbooker.ui.SignUpActivity"
             android:exported="false" />
         <activity android:name="com.restaurantbooker.ui.WelcomeActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true"/>
         <activity android:name="com.restaurantbooker.ui.DashboardActivity"
             android:exported="false"/>
         <activity android:name="com.restaurantbooker.ui.ViewBookingsActivity"

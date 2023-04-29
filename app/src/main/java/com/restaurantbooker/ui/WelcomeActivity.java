@@ -1,6 +1,7 @@
 package com.restaurantbooker.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -72,21 +73,34 @@ public class WelcomeActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // get user input
+                // Get user input
                 String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
 
-                // validate user input
+                // Validate user input
                 if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
                     tvErrorMessage.setText("Please enter both email and password.");
                     tvErrorMessage.setVisibility(View.VISIBLE);
                     return;
                 }
 
-                // proceed to dashboard activity
-                Intent intent = new Intent(WelcomeActivity.this, DashboardActivity.class);
-                startActivity(intent);
-                finish();
+                // Authenticate the user
+                userViewModel.getUserByEmail(email).observe(WelcomeActivity.this, new Observer<UserEntity>() {
+                    @Override
+                    public void onChanged(UserEntity existingUser) {
+                        if (existingUser != null && existingUser.getPassword().equals(password)) {
+                            // User authenticated, proceed to dashboard activity
+                            Intent intent = new Intent(WelcomeActivity.this, DashboardActivity.class);
+                            saveUserEmail(email);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            // Invalid credentials, show error message
+                            tvErrorMessage.setText("Invalid email or password.");
+                            tvErrorMessage.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });
             }
         });
 
@@ -127,6 +141,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
                                         // Navigate to the DashboardActivity after successful registration
                                         Intent intent = new Intent(WelcomeActivity.this, DashboardActivity.class);
+                                        saveUserEmail(email);
                                         startActivity(intent);
                                         finish();
                                     } else {
@@ -146,5 +161,12 @@ public class WelcomeActivity extends AppCompatActivity {
     private void showMessage(String message) {
         Toast.makeText(WelcomeActivity.this, message, Toast.LENGTH_LONG).show();
 
+    }
+
+    private void saveUserEmail(String email) {
+        SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("user_email", email);
+        editor.apply();
     }
 }

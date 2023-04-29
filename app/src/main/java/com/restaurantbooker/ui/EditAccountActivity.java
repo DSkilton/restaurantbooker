@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.restaurantbooker.R;
+import com.restaurantbooker.data.RoomUserRepository;
 import com.restaurantbooker.data.dao.UserDao;
 import com.restaurantbooker.data.database.AppDatabase;
 import com.restaurantbooker.data.entities.UserEntity;
@@ -20,11 +22,11 @@ import com.restaurantbooker.user.User;
 
 public class EditAccountActivity extends AppCompatActivity {
     private static final String TAG = "EditAccountActivity";
-    private EditText etUsername;
+    private RoomUserRepository userRepository;
     private EditText etEmail;
+    private EditText etPassword;
     private Button btnSave;
     private Button btnCancel;
-    private UserDao userDao;
     private UserEntity currentUser;
 
     @Override
@@ -32,12 +34,16 @@ public class EditAccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editaccount);
 
-        etUsername = findViewById(R.id.et_username);
+        userRepository = new RoomUserRepository(getApplication());
+
+        String email = getIntent().getStringExtra("email");
+        String password = getIntent().getStringExtra("password");
+        Log.d("EditAccountActivity", "email: " + email + ", password: " + password);
+
         etEmail = findViewById(R.id.et_email);
+        etPassword = findViewById(R.id.et_password);
         btnSave = findViewById(R.id.btn_save);
         btnCancel = findViewById(R.id.btn_cancel);
-
-        userDao = AppDatabase.getInstance(this).userDao();
 
         // Load current user data into EditText fields
         loadUserData();
@@ -58,32 +64,29 @@ public class EditAccountActivity extends AppCompatActivity {
     }
 
     private void loadUserData() {
-        // Get the current user's email from shared preferences
-        SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
-        String currentUserEmail = sharedPreferences.getString("user_email", null);
-
-        if (currentUserEmail != null) {
-            currentUser = userDao.findByEmail(currentUserEmail);
+        Intent intent = getIntent();
+        String currentUserEmail = intent.getStringExtra("user_email");
+        userRepository.getUserByEmail(currentUserEmail).observe(this, user -> {
+            currentUser = user;
             if (currentUser != null) {
-                etUsername.setText(currentUser.getUsername());
                 etEmail.setText(currentUser.getEmail());
+                etPassword.setText(currentUser.getPassword());
+            } else {
+                // Handle the case when the current user's data is not found in the database
+                Toast.makeText(this, "There's an issue with your account data. Please log in again.", Toast.LENGTH_LONG).show();
+                // Navigate back to the login screen
+                Intent welcomeIntent = new Intent(EditAccountActivity.this, WelcomeActivity.class);
+                startActivity(welcomeIntent);
+                finish();
             }
-        } else {
-            // Handle the case when the current user's email is not found in shared preferences
-            Toast.makeText(this, "There's an issue with your account data. Please log in again.", Toast.LENGTH_LONG).show();
-            // Navigate back to the login screen
-            Intent intent = new Intent(EditAccountActivity.this, LoginActivity.class);
-            startActivity(intent);
-            finish();
-        }
+        });
     }
 
     private void saveUserData() {
         if (currentUser != null) {
-            String username = etUsername.getText().toString().trim();
             String email = etEmail.getText().toString().trim();
-
-            if (username.isEmpty() || email.isEmpty()) {
+            String password = etPassword.getText().toString().trim();
+            if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Please fill in all fields.", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -93,13 +96,17 @@ public class EditAccountActivity extends AppCompatActivity {
                 return;
             }
 
-            currentUser.setUsername(username);
             currentUser.setEmail(email);
-            userDao.updateUser(currentUser);
-
-            Log.d(TAG, "User data saved: username = " + username + ", email = " + email);
-            Toast.makeText(this, "Account information updated successfully!", Toast.LENGTH_SHORT).show();
-            finish();
+            currentUser.setPassword(password);
+            userRepository.updateUser(currentUser, rowsUpdated -> {
+                if (rowsUpdated > 0) {
+                    Log.d(TAG, "User data saved: email = " + email + ", password = " + password);
+                    Toast.makeText(this, "Account information updated successfully!", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    Toast.makeText(this, "Error updating account information. Please try again.", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 }

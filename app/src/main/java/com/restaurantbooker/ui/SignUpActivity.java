@@ -47,7 +47,7 @@ public class SignUpActivity extends AppCompatActivity {
             signUpViewModel.signUpUser(email, password).observe(this, userEntity -> {
                 if (userEntity != null) {
                     // Sign up successful, navigate to LoginActivity
-                    Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                    Intent intent = new Intent(SignUpActivity.this, WelcomeActivity.class);
                     startActivity(intent);
                     finish(); // Close SignUpActivity
                 } else {
