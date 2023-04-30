@@ -163,6 +163,7 @@ public class RoomUserRepository implements UserRepository {
 
         @Override
         protected Integer doInBackground(UserEntity... userEntities) {
+            Log.d(TAG, "Updating user: " + userEntities[0]);
             return userDao.updateUser(userEntities[0]);
         }
 

@@ -1,6 +1,7 @@
 package com.restaurantbooker.data.entities;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.annotation.NonNull;
 
@@ -17,6 +18,12 @@ public class UserEntity {
     public UserEntity(@NonNull String email, String password) {
         this.email = email;
         this.password = password;
+    }
+
+    @Ignore //room can ignore this constructor
+    public UserEntity(@NonNull String email, String password, String username) {
+        this(email, password);
+        this.username = username;
     }
 
     public String getEmail() {

@@ -25,8 +25,10 @@ public class EditAccountActivity extends AppCompatActivity {
     private RoomUserRepository userRepository;
     private EditText etEmail;
     private EditText etPassword;
+    private EditText etUsername;
     private Button btnSave;
     private Button btnCancel;
+    private Button btnBack;
     private UserEntity currentUser;
 
     @Override
@@ -42,8 +44,10 @@ public class EditAccountActivity extends AppCompatActivity {
 
         etEmail = findViewById(R.id.et_email);
         etPassword = findViewById(R.id.et_password);
+        etUsername = findViewById(R.id.et_username);
         btnSave = findViewById(R.id.btn_save);
         btnCancel = findViewById(R.id.btn_cancel);
+        btnBack = findViewById(R.id.btn_back);
 
         // Load current user data into EditText fields
         loadUserData();
@@ -61,16 +65,24 @@ public class EditAccountActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     private void loadUserData() {
         Intent intent = getIntent();
-        String currentUserEmail = intent.getStringExtra("user_email");
+        String currentUserEmail = intent.getStringExtra("email");
         userRepository.getUserByEmail(currentUserEmail).observe(this, user -> {
             currentUser = user;
             if (currentUser != null) {
                 etEmail.setText(currentUser.getEmail());
                 etPassword.setText(currentUser.getPassword());
+                etUsername.setText(currentUser.getUsername());
             } else {
                 // Handle the case when the current user's data is not found in the database
                 Toast.makeText(this, "There's an issue with your account data. Please log in again.", Toast.LENGTH_LONG).show();
@@ -91,13 +103,16 @@ public class EditAccountActivity extends AppCompatActivity {
                 return;
             }
 
-            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            boolean isEmailValid = Patterns.EMAIL_ADDRESS.matcher(email).matches();
+            Log.d(TAG, "Email: " + email + ", isValid: " + isEmailValid); // Add this line
+            if (!isEmailValid) {
                 Toast.makeText(this, "Invalid email format. Please check your input.", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             currentUser.setEmail(email);
             currentUser.setPassword(password);
+            currentUser.setUsername(etUsername.getText().toString());
             userRepository.updateUser(currentUser, rowsUpdated -> {
                 if (rowsUpdated > 0) {
                     Log.d(TAG, "User data saved: email = " + email + ", password = " + password);
